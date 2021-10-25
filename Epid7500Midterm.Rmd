@@ -1,0 +1,50 @@
+---
+title: "Epid7500Midterm"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+COVID_global= read_csv("WHO-COVID-19-global-data (3).csv")
+head(COVID_global)
+
+```
+```{r message=TRUE, warning=TRUE}
+max(COVID_global$Cumulative_cases)
+which.max(COVID_global$Cumulative_cases)
+library(tidyverse)
+max_cumucases <- COVID_global %>% slice_max(Cumulative_cases)
+print(max_cumucases)
+max_cumudeaths <- COVID_global %>% slice_max(Cumulative_deaths)
+max_cumucases
+Date1 <- as.Date("03/11/2020")
+Date2<- as.Date("03/11/2021")
+COVID_global %>%
+    filter(between(Date_reported, as.Date("03/11/2020"), as.Date("03/11/2021")))
+ggplot(data=COVID_global, aes(x= Date_reported , y=Cumulative_cases)) +
+  geom_point()
+ggplot(data=COVID_global, aes(x= Date1:Date2 , y=Cumulative_cases)) +
+  geom_point()
+```
